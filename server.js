@@ -1,27 +1,35 @@
-var express = require('express');
-var http = require('http');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var authController = require('./auth');
-var authJwtController = require('./auth_jwt');
-db = require('./db')(); //global hack
-var jwt = require('jsonwebtoken');
-var cors = require('cors');
+const express = require("express");
+const http = require('http');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const authController = require('./auth/auth');
+const authJwtController = require('./auth/auth_jwt');
+const jwt = require('jsonwebtoken');
 
-var app = express();
-app.use(cors());
+const User = require('./usermgr/schema/user');
+const Movie = require('./moviemgr/schema/movie');
+const userMgr = require('./usermgr/common/usermgr');
+const movieMgr = require('./moviemgr/common/moviemgr');
+require('./db.js');
+
+const app = express();
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(passport.initialize());
 
-var router = express.Router();
+const router = express.Router();
+
+function getBadRouteJSON(req, res, route) {
+    res.json({success: false, msg: req.method + " requests are not supported by " + route});
+}
 
 function getJSONObject(req) {
-    var json = {
-        headers : "No Headers",
+    const json = {
+        headers: "No Headers",
         key: process.env.UNIQUE_KEY,
-        body : "No Body"
+        body: "No Body"
     };
 
     if (req.body != null) {
@@ -34,6 +42,24 @@ function getJSONObject(req) {
     return json;
 }
 
+function getMoviesJSONObject(req, msg) {
+    const json = {
+        status: 200,
+        message: msg,
+        headers: "No Headers",
+        query: "No Query String",
+        env: process.env.UNIQUE_KEY
+    };
+
+    if (req.query != null) {
+        json.query = req.query;
+    }
+    if (req.headers != null) {
+        json.headers = req.headers;
+    }
+    return json;
+}
+
 router.route('/post')
     .post(authController.isAuthenticated, function (req, res) {
             console.log(req.body);
@@ -42,7 +68,7 @@ router.route('/post')
                 console.log("Content-Type: " + req.get('Content-Type'));
                 res = res.type(req.get('Content-Type'));
             }
-            var o = getJSONObject(req);
+            const o = getJSONObject(req);
             res.json(o);
         }
     );
@@ -59,41 +85,47 @@ router.route('/postjwt')
         }
     );
 
-router.post('/signup', function(req, res) {
-    if (!req.body.username || !req.body.password) {
-        res.json({success: false, msg: 'Please pass username and password.'});
-    } else {
-        var newUser = {
-            username: req.body.username,
-            password: req.body.password
-        };
-        // save the user
-        db.save(newUser); //no duplicate checking
-        res.json({success: true, msg: 'Successful created new user.'});
-    }
-});
+router.route('/findallusers')
+    .post(userMgr.findAllUsers);
 
-router.post('/signin', function(req, res) {
+router.route('/signup')
+    .post(userMgr.signUp)
+    .all(function (req, res) {
+        getBadRouteJSON(req, res, "/signup");
+    });
 
-        var user = db.findOne(req.body.username);
+router.route('/signin')
+    .post(userMgr.signIn)
+    // === ALL OTHER ROUTES TO /SIGNIN  ARE REJECTED
+    .all(function (req, res) {
+        getBadRouteJSON(req, res, "/signin");
+    });
 
-        if (!user) {
-            res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
-        }
-        else {
-            // check if password matches
-            if (req.body.password == user.password)  {
-                var userToken = { id : user.id, username: user.username };
-                var token = jwt.sign(userToken, process.env.SECRET_KEY);
-                res.json({success: true, token: 'JWT ' + token});
-            }
-            else {
-                res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
-            }
-        };
-});
+router.route('/movies')
+    .get(
+        authJwtController.isAuthenticated,
+        movieMgr.getMovies
+    )
+    .post(
+        authJwtController.isAuthenticated,
+        movieMgr.postMovie
+    )
+    .put(
+        authJwtController.isAuthenticated,
+        movieMgr.putMovie
+    )
+    .delete(
+        authJwtController.isAuthenticated,
+        movieMgr.deleteMovie
+    )
+    .all(function (req, res) {
+        getBadRouteJSON(req, res, "/movies");
+    });
 
 app.use('/', router);
+app.use(function (req, res) {
+    getBadRouteJSON(req, res, "this URL path");
+});
 app.listen(process.env.PORT || 8080);
 
 module.exports = app; // for testing
