@@ -7,7 +7,7 @@ require('dotenv').load();
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
-opts.secretOrKey = process.env.SECRET_KEY;
+opts.secretOrKey = process.env.UNIQUE_KEY;
 
 passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
         userMgr.findUserById(jwt_payload)
