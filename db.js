@@ -1,4 +1,4 @@
-require("./user");
+require("./usermgr/schema/user");
 const mongoose  =  require( "mongoose" );
 const dbURI     =  process.env.DB_URL;
 
