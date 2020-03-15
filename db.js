@@ -1,6 +1,7 @@
 require("./usermgr/schema/user");
-const mongoose  =  require( "mongoose" );
-const dbURI     =  process.env.DB_URL;
+const MongoClient = require('mongodb').MongoClient;
+const mongoose = require("mongoose");
+const dbURI = process.env.DB_URL;
 
 const options = {
     reconnectTries: Number.MAX_VALUE,
@@ -8,12 +9,18 @@ const options = {
 };
 
 mongoose
-    .connect( dbURI , options )
+    .connect(dbURI, options)
     .then(
         () => {
-            console.log( "Database connection established!" );
+            console.log("Database connection established!");
         },
         err => {
-            console.log( "Error connecting Database instance due to: " , err );
+            console.log("Error connecting Database instance due to: ", err);
         }
     );
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+    const collection = client.db("test").collection("devices");
+    // perform actions on the collection object
+    client.close();
+});

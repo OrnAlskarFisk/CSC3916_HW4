@@ -28,7 +28,7 @@ function getBadRouteJSON(req, res, route) {
 function getJSONObject(req) {
     const json = {
         headers: "No Headers",
-        key: process.env.UNIQUE_KEY,
+        key: process.env.SECRET_KEY,
         body: "No Body"
     };
 
@@ -48,7 +48,7 @@ function getMoviesJSONObject(req, msg) {
         message: msg,
         headers: "No Headers",
         query: "No Query String",
-        env: process.env.UNIQUE_KEY
+        env: process.env.SECRET_KEY
     };
 
     if (req.query != null) {
@@ -96,7 +96,6 @@ router.route('/signup')
 
 router.route('/signin')
     .post(userMgr.signIn)
-    // === ALL OTHER ROUTES TO /SIGNIN  ARE REJECTED
     .all(function (req, res) {
         getBadRouteJSON(req, res, "/signin");
     });

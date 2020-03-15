@@ -37,7 +37,7 @@ exports.signUp =
                         msg: 'A user with that username already exists'
                     });
                 } else {
-                    let hashpass = crypto.createHmac('sha256', process.env.UNIQUE_KEY)
+                    let hashpass = crypto.createHmac('sha256', process.env.SECRET_KEY)
                         .update(req.body.password)
                         .digest('hex');
                     let user = new User({
@@ -68,7 +68,7 @@ exports.signIn =
             });
             return;
         }
-        let hashpass = crypto.createHmac('sha256', process.env.UNIQUE_KEY)
+        let hashpass = crypto.createHmac('sha256', process.env.SECRET_KEY)
             .update(req.body.password)
             .digest('hex');
         User.findOne(
@@ -91,7 +91,7 @@ exports.signIn =
                     id: user._id,
                     username: user.username
                 };
-                let token = jwt.sign(userToken, process.env.UNIQUE_KEY);
+                let token = jwt.sign(userToken, process.env.SECRET_KEY);
                 res.status(200).json({
                     success: true,
                     name: user.name,
@@ -103,7 +103,7 @@ exports.signIn =
 
 exports.findUserByLogin =
     async function (uname, pword) {
-        let hashpass = crypto.createHmac('sha256', process.env.UNIQUE_KEY)
+        let hashpass = crypto.createHmac('sha256', process.env.SECRET_KEY)
             .update(pword)
             .digest('hex');
         let user = await User.findOne({username: uname, password: hashpass});
