@@ -18,7 +18,7 @@ mongoose
             console.log("Error connecting Database instance due to: ", err);
         }
     );
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(dbURI, { useNewUrlParser: true });
 client.connect(err => {
     const collection = client.db("test").collection("devices");
     // perform actions on the collection object
