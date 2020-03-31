@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d9ee19f9-cc16-478b-9ef6-92d5d45bbb3c" name="Default" comment="">
+    <list default="true" id="d9ee19f9-cc16-478b-9ef6-92d5d45bbb3c" name="Default" comment="Key fix 3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/db.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,22 +96,34 @@
       <workItem from="1584156396609" duration="1654000" />
       <workItem from="1584225076369" duration="4934000" />
       <workItem from="1585590595130" duration="1716000" />
-      <workItem from="1585614216516" duration="264000" />
+      <workItem from="1585614216516" duration="1684000" />
     </task>
+    <task id="LOCAL-00001" summary="Key fix 3">
+      <created>1585614502051</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585614502051</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Key fix 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Key fix 3" />
   </component>
   <component name="WindowStateProjectService">
     <state x="548" y="287" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1584123716060">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="548" y="287" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1600.860@0.0.1600.860" timestamp="1584123716060" />
-    <state x="423" y="26" key="CommitChangelistDialog2" timestamp="1585590884367">
+    <state x="423" y="26" key="CommitChangelistDialog2" timestamp="1585614501457">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="423" y="26" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1585590884367" />
+    <state x="423" y="26" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1585614501457" />
     <state x="154" y="75" key="DiffContextDialog" timestamp="1585590882326">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -137,6 +148,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1580" height="283" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1584224905308" />
+    <state x="788" y="165" key="Vcs.Push.Dialog.v2" timestamp="1585614504949">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="788" y="165" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1585614504949" />
     <state x="493" y="161" width="613" height="536" key="find.popup" timestamp="1584125473907">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
