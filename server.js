@@ -9,8 +9,11 @@ const jwt = require('jsonwebtoken');
 
 const User = require('./usermgr/schema/user');
 const Movie = require('./moviemgr/schema/movie');
+const Review = require('./reviewmgr/schema/review')
+
 const userMgr = require('./usermgr/common/usermgr');
 const movieMgr = require('./moviemgr/common/moviemgr');
+const reviewMgr = require('./reviewmgr/common/reviewmgr')
 require('./db.js');
 
 const app = express();
@@ -122,6 +125,20 @@ router.route('/movies')
     .all(function (req, res) {
         getBadRouteJSON(req, res, "/movies");
     });
+
+router.route('/reviews')
+    .get(
+        reviewMgr.getReviews
+    )
+    .post(
+        authJwtController.isAuthenticated,
+        reviewMgr.postReview
+    )
+    .all(
+        function (req, res) {
+            getBadRouteJSON(req, res, "/movies");
+        });
+
 
 app.use('/', router);
 app.use(function (req, res) {

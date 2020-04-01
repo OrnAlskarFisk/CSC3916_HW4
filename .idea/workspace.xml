@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9ee19f9-cc16-478b-9ef6-92d5d45bbb3c" name="Default" comment="Key fix 3">
+      <change afterPath="$PROJECT_DIR$/reviewmgr/common/reviewmgr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reviewmgr/schema/review.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moviemgr/common/moviemgr.js" beforeDir="false" afterPath="$PROJECT_DIR$/moviemgr/common/moviemgr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +36,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.14.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CSC3916_HW2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
@@ -97,6 +102,7 @@
       <workItem from="1584225076369" duration="4934000" />
       <workItem from="1585590595130" duration="1716000" />
       <workItem from="1585614216516" duration="1684000" />
+      <workItem from="1585703646240" duration="2853000" />
     </task>
     <task id="LOCAL-00001" summary="Key fix 3">
       <created>1585614502051</created>
