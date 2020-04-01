@@ -19,7 +19,8 @@
     "mongoose": "^5.9.4",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
-    "passport-jwt": "^3.0.1"
+    "passport-jwt": "^3.0.1",
+    "got": "~10.7.0"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
