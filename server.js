@@ -1,4 +1,5 @@
 const express = require("express");
+const got = require('got');
 const cors = require('cors')
 const http = require('http');
 const bodyParser = require('body-parser');
@@ -21,10 +22,52 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
+app.enable('trust proxy');
 app.use(passport.initialize());
 
 const router = express.Router();
+const {GA_TRACKING_ID} = process.env;
+
+const trackEvent = (category, action, label, value) => {
+    const data = {
+        // API Version.
+        v: '1',
+        // Tracking ID / Property ID.
+        tid: GA_TRACKING_ID,
+        // Anonymous Client Identifier. Ideally, this should be a UUID that
+        // is associated with particular user, device, or browser instance.
+        cid: '555',
+        // Event hit type.
+        t: 'event',
+        // Event category.
+        ec: category,
+        // Event action.
+        ea: action,
+        // Event label.
+        el: label,
+        // Event value.
+        ev: value,
+    };
+    return got.post('http://www.google-analytics.com/collect', data);
+};
+
+app.get('/', async (req, res, next) => {
+    // Event value must be numeric.
+    try {
+        await trackEvent(
+            'Example category',
+            'Example action',
+            'Example label',
+            '100'
+        );
+        res.status(200).send('Event tracked.').end();
+    } catch (error) {
+        // This sample treats an event tracking error as a fatal error. Depending
+        // on your application's needs, failing to track an event may not be
+        // considered an error.
+        next(error);
+    }
+});
 
 function getBadRouteJSON(req, res, route) {
     res.json({success: false, msg: req.method + " requests are not supported by " + route});
