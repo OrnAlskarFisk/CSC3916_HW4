@@ -50,7 +50,38 @@ const trackEvent = (category, action, label, value) => {
     };
     return got.post('http://www.google-analytics.com/collect', data);
 };
-
+function trackDimension(category, action, label, value, dimension, metric){
+    var options = {method: 'GET',
+    url: 'http://www.google-analytics.com/collect',
+    qs:
+        {
+            // API Version.
+            v: '1',
+            // Tracking ID / Property ID.
+            tid: GA_TRACKING_ID,
+            // Anonymous Client Identifier. Ideally, this should be a UUID that
+            // is associated with particular user, device, or browser instance.
+            cid: '555',
+            // Event hit type.
+            t: 'event',
+            // Event category.
+            ec: category,
+            // Event action.
+            ea: action,
+            // Event label.
+            el: label,
+            // Event value.
+            ev: value,
+            //Custom Dimension
+            cd1: dimension,
+            //custom Metric
+            cm1: metric
+        },
+     headers:
+         {'Cache-Control': 'no-cache'}
+    };
+    return rp(options);
+}
 app.get('/', async (req, res, next) => {
     // Event value must be numeric.
     try {
