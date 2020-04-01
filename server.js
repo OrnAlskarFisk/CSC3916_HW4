@@ -7,6 +7,8 @@ const passport = require('passport');
 const authController = require('./auth/auth');
 const authJwtController = require('./auth/auth_jwt');
 const jwt = require('jsonwebtoken');
+const crypto = require("crypto");
+const rp = require('request-promise');
 
 const User = require('./usermgr/schema/user');
 const Movie = require('./moviemgr/schema/movie');
