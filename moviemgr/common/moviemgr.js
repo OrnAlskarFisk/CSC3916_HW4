@@ -1,9 +1,7 @@
 const Movie = require('../schema/movie');
 
 exports.getMovies =
-    async
-
-function (req, res) {
+    async function (req, res) {
     reviews = req.query.reviews;
     if (reviews && reviews.toLowerCase() == 'true') {
         query = req.query;
