@@ -26,7 +26,7 @@ app.enable('trust proxy');
 app.use(passport.initialize());
 
 const router = express.Router();
-const {GA_TRACKING_ID} = process.env;
+const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
 
 const trackEvent = (category, action, label, value) => {
     const data = {
