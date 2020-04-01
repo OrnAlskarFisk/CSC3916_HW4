@@ -28,28 +28,6 @@ app.use(passport.initialize());
 const router = express.Router();
 const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
 
-const trackEvent = (category, action, label, value) => {
-    const data = {
-        // API Version.
-        v: '1',
-        // Tracking ID / Property ID.
-        tid: GA_TRACKING_ID,
-        // Anonymous Client Identifier. Ideally, this should be a UUID that
-        // is associated with particular user, device, or browser instance.
-        cid: '555',
-        // Event hit type.
-        t: 'event',
-        // Event category.
-        ec: category,
-        // Event action.
-        ea: action,
-        // Event label.
-        el: label,
-        // Event value.
-        ev: value,
-    };
-    return got.post('http://www.google-analytics.com/collect', data);
-};
 function trackDimension(category, action, label, value, dimension, metric){
     var options = {method: 'GET',
     url: 'http://www.google-analytics.com/collect',
@@ -82,23 +60,16 @@ function trackDimension(category, action, label, value, dimension, metric){
     };
     return rp(options);
 }
-app.get('/', async (req, res, next) => {
-    // Event value must be numeric.
-    try {
-        await trackEvent(
-            'Example category',
-            'Example action',
-            'Example label',
-            '100'
-        );
-        res.status(200).send('Event tracked.').end();
-    } catch (error) {
-        // This sample treats an event tracking error as a fatal error. Depending
-        // on your application's needs, failing to track an event may not be
-        // considered an error.
-        next(error);
-    }
-});
+
+router.route('/test')
+    .get(function (req, res) {
+        // Event value must be numeric.
+        trackDimension('Feedback', 'Rating', 'Feedback for Movie', '3', 'Guardian\'s of the Galaxy 2', '1')
+            .then(function (response) {
+                console.log(response.body);
+                res.status(200).send('Event tracked.').end();
+            })
+    });
 
 function getBadRouteJSON(req, res, route) {
     res.json({success: false, msg: req.method + " requests are not supported by " + route});
