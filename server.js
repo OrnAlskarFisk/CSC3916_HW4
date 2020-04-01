@@ -28,7 +28,7 @@ app.enable('trust proxy');
 app.use(passport.initialize());
 
 const router = express.Router();
-const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
+const GA_TRACKING_ID = process.env.GA_KEY;
 
 function trackDimension(category, action, label, value, dimension, metric){
     var options = {method: 'GET',
