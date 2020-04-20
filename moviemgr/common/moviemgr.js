@@ -25,9 +25,16 @@ exports.getMovies =
                     actors: 2,
                     yearReleased: 3,
                     genre: 4,
-                    reviews: '$reviews'
+					imageUrl: 5,
+                    reviews: '$reviews',
+					avgRating: { $avg : "$reviews.rating" }
                 }
-            }
+            },
+			{	
+				$sort: { 
+					avgRating: -1 
+				} 
+			}
         ]);
         res.status(200).send(movies);
     } else {
